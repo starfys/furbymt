@@ -5,6 +5,7 @@ from voiceOut import say
 
 # Import modules
 from furby_beeMovie import bee
+from furby_math import math
 from furby_date import date
 from furby_fortune import fortune
 from furby_luckyNumber import lucky
@@ -13,6 +14,11 @@ from furby_time import get_time
 from furby_weather import weather
 from furby_forecast import get_forecast
 
+print("Math...")
+say(math(22, '/', 7))
+
+print("Date...")
+say(date())
 
 print("Time...")
 say(get_time())
@@ -25,9 +31,6 @@ say(get_forecast(0))
 
 print("Lucky...")
 say(lucky("pepe"))
-
-print("Date...")
-say(date())
 
 print("Fortune...")
 say(fortune())
