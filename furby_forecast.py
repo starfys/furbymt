@@ -9,10 +9,25 @@ period_list = parsed_json['forecast']
 forecasts = []
 
 for period in parsed_json['forecast']['txt_forecast']['forecastday']:
-    period_forecast = ("{}: {}".format(period['title'],period['fcttext']))
-    forecasts.append(period_forecast)
+	period_forecast = ("{}: {}".format(period['title'],period['fcttext']))
+	forecasts.append(period_forecast)
 
 def get_forecast(day):
-    string = forecasts[day]
-    return string
- 
+	
+	if day == '0':
+		dayNum = 0
+	elif day == '1':
+		dayNum = 1
+	elif day == '2':
+		dayNum = 2
+	elif day == '3':
+		dayNum = 3
+	elif day == '4':
+		dayNum = 4
+	elif day == '5':
+		dayNum = 5
+	else:
+		dayNum = -1
+
+	string = forecasts[dayNum]
+	return string

@@ -17,63 +17,37 @@ from furby_time import get_time
 from furby_weather import weather
 from furby_forecast import get_forecast
 from furby_inspire import inspire
+from furby_wolfram import wolfram
 
 threadLock = threading.Lock()
 threads = []
 
 def modSelect(str):
 	firstword = str.split()[0]
-
+	theRest = ''
+	for word in str.split()[1:]:
+		theRest = theRest + word + ' '
 	if firstword == "bee":
 		say(bee(), 0)
-
 	elif firstword == "compute": 
-		say(str.split()[1], 0)
-		if str.split()[2] == "+":
-			say("Plus", 0)
-		elif str.split()[2] == '-':
-			say("Minus", 0)
-		elif str.split()[2] == '/':
-			say("Divided by", 0)
-		elif str.split()[2] == '*':
-			say("Times", 0)
-		else:
-			say("nothing", 0)
-		say(str.split()[3], 0)
-		say("equals", 0)
-		say(math(str.replace('compute ', '')), 0)
+		say(math(theRest), 0)
 	elif firstword == "date":
 		say(date(), 0)
+	elif firstword == "query":
+		say(wolfram(theRest), 0)
 	elif firstword == "fortune":
 		say(fortune(), 0)
-
 	elif firstword == "lucky": #takes arguments
-		say(lucky(), 0) 
+		say(lucky(theRest), 0) 
 	elif firstword == "stallman":
-
 		say(stallman(), 0)
 	elif firstword == "time":
 		say(get_time(), 0)
 	elif firstword == "weather":
 		say(weather(), 0)
 	elif firstword == "forecast": #takes arguments
-		say(str, 0)
-		newstr = str.replace('forecast for ', '')
-		if newstr == "today":
-			say(get_forecast(0), 0)
-		elif newstr == "tonight":
-			say(get_forecast(1), 0)
-		elif newstr == "tomorrow":
-			say(get_forecast(2), 0)
-		elif newstr == "tomorrow night":
-			say(get_forecast(3), 0)
-		elif newstr == "the day after tomorrow":
-			say(get_forecast(4), 0)
-		elif newstr == "the night after tomorrow":
-			say(get_forecast(5), 0)
-		else:
-			say("I don't know that day. What do you think I am?", 0)
-			pass
+		print(theRest)
+		say(get_forecast(theRest), 0)
 	else:
    		say("You said "+ str + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
 
@@ -84,7 +58,7 @@ class furby_sayThread (threading.Thread):
 		self.threadID = threadID
 		self.name = name
 		self.mod = mod
-		self._stop = threading.Event()
+
 	def run(self):
 	#	print( "Starting " + self.name)
 		modSelect(self.mod)
@@ -97,14 +71,6 @@ class furby_sayThread (threading.Thread):
 
 
 #say("Furby online.", 500)
-
-def furby_say(string):
-	
-	return
-def furby_show():
-	return
-def furby_move():
-	return
 
 while True:
 	val = input('Do? ')
