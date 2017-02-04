@@ -15,6 +15,7 @@ from furby_richardStallman import stallman
 from furby_time import get_time
 from furby_weather import weather
 from furby_forecast import get_forecast
+from furby_inspire import inspire
 
 threadLock = threading.Lock()
 threads = []
@@ -22,12 +23,17 @@ threads = []
 def modSelect(str):
 	if str == "bee":
 		say(bee(), 0)
+		self.stop()
 	elif str == "math":
 		say(math(), 0)
+	elif str == "":
+		pass
 	elif str == "date":
 		say(date(), 0)
 	elif str == "fortune":
 		say(fortune(), 0)
+	elif str == "inspire me":
+		say(inspire(), 0)
 	elif str == "lucky":
 		say(lucky(), 0)
 	elif str == "stallman":
@@ -38,9 +44,10 @@ def modSelect(str):
 		say(weather(), 0)
 	elif str == "forecast":
 		say(get_forecast(0), 0)	
+	elif str == "quit":
+		say("Ok.")
 	else:
    		say("You said "+ str + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
-	threads.remove(0)
 
 
 class furby_sayThread (threading.Thread):
@@ -49,10 +56,16 @@ class furby_sayThread (threading.Thread):
 		self.threadID = threadID
 		self.name = name
 		self.mod = mod
+		self._stop = threading.Event()
 	def run(self):
 	#	print( "Starting " + self.name)
 		modSelect(self.mod)
 	#	print ("Exiting " + self.name)
+	def stop(self):
+		self._stop.set()
+
+	def stopped(self):
+		return self._stop.isSet()
 
 
 #say("Furby online.", 500)
@@ -67,7 +80,27 @@ def furby_move():
 
 while True:
 	val = input('Do? ')
+	for thread in threads:
+		if not thread.is_alive():
+			print ("Removed finished thread.")
+			threads.remove(thread)
+	if len(threads) > 0:
+		if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
+			sayThread.stop()
+			#sayThread = furby_sayThread(1, "sayThread", "quit")
+			#sayThread.start( )
+			#threads.append(sayThread)
+		else:
+			sayThread = furby_sayThread(1, "sayThread", val)
+			sayThread.start( )
+			threads.append(sayThread)
+	else:
+			sayThread = furby_sayThread(1, "sayThread", val)
+			sayThread.start( )
+			threads.append(sayThread)
+	print (threads) 
 
+'''
 	if len(threads) > 0:
 		if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
 			threads[0].stop()
@@ -81,10 +114,10 @@ while True:
 			sayThread = furby_sayThread(1, "sayThread", val)
 			sayThread.start( )
 			threads.append(sayThread)
-	print
+	print (threads) 
 
 
-	'''if val == 'time':
+	if val == 'time':
 		sayThread.mod = "time"
 
 	elif val == 'weather':
@@ -98,4 +131,4 @@ while True:
 #
 #		elif:
 #
-#		elif:	
+#		elif:	'''
