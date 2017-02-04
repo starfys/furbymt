@@ -21,31 +21,58 @@ threadLock = threading.Lock()
 threads = []
 
 def modSelect(str):
-    if str == "bee":
+    firstword = str.split()[0]
+
+    if firstword == "bee":
         say(bee(), 0)
-        self.stop()
-    elif str == "math":
-        say(math(), 0)
-    elif str == "":
-        pass
-    elif str == "date":
+
+    elif firstword == "compute": 
+        say(str.split()[1], 0)
+        if str.split()[2] == "+":
+            say("Plus", 0)
+        elif str.split()[2] == '-':
+            say("Minus", 0)
+        elif str.split()[2] == '/':
+            say("Divided by", 0)
+        elif str.split()[2] == '*':
+            say("Times", 0)
+        else:
+            say("nothing", 0)
+        say(str.split()[3], 0)
+        say("equals", 0)
+        say(math(str.replace('compute ', '')), 0)
+    elif firstword == "date":
         say(date(), 0)
-    elif str == "fortune":
+    elif firstword == "fortune":
         say(fortune(), 0)
-    elif str == "inspire me":
-        say(inspire(), 0)
-    elif str == "lucky":
-        say(lucky(), 0)
-    elif str == "stallman":
+
+    elif firstword == "lucky": #takes arguments
+        say(lucky(), 0) 
+    elif firstword == "stallman":
+
         say(stallman(), 0)
-    elif str == "time":
+    elif firstword == "time":
         say(get_time(), 0)
-    elif str == "weather":
+    elif firstword == "weather":
         say(weather(), 0)
-    elif str == "forecast":
-        say(get_forecast(0), 0) 
-    elif str == "quit":
-        say("Ok.")
+    elif firstword == "forecast": #takes arguments
+        say(str, 0)
+        newstr = str.replace('forecast for ', '')
+        if newstr == "today":
+            say(get_forecast(0), 0)
+        elif newstr == "tonight":
+            say(get_forecast(1), 0)
+        elif newstr == "tomorrow":
+            say(get_forecast(2), 0)
+        elif newstr == "tomorrow night":
+            say(get_forecast(3), 0)
+        elif newstr == "the day after tomorrow":
+            say(get_forecast(4), 0)
+        elif newstr == "the night after tomorrow":
+            say(get_forecast(5), 0)
+        else:
+            say("I don't know that day. What do you think I am?", 0)
+            pass
     else:
         say("You said "+ str + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
 
