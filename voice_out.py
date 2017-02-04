@@ -1,4 +1,9 @@
-import espeak, sys, string, os
-es = espeak.ESpeak()
+import espeak
+import sys
 
-es.say(os.system(sys.argv[1]))
+
+
+arg1 = input()
+
+es = espeak.ESpeak()
+es.say(arg1)
