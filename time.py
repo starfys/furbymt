@@ -1,9 +1,6 @@
-import os
+def get_time():
+    from time import gmtime, strftime
+    string = strftime("%l:%M")
+    return string
 
-# returns the command line time in a string
-def time():
-	t = "The time is "
-	f = os.popen('date +%r')
-	t += f.read()
 
-	return (str(t))
