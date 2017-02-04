@@ -2,6 +2,8 @@
 from voiceOut import say 
 import fileinput
 import threading
+import ctypes
+import inspect
 #from movementOut import move
 #from screenOut import display
 
@@ -111,7 +113,7 @@ class ThreadWithExc(threading.Thread):
     '''
     def run(self):
     #   print( "Starting " + self.name)
-        modSelect("bee")
+        modSelect("stallman")
 
     def _get_my_tid(self):
         """determines this (self's) thread id
@@ -164,7 +166,10 @@ class ThreadWithExc(threading.Thread):
 
 sayThread = ThreadWithExc()
 sayThread.start()
+sayThread.raiseExc(TypeError)
 
 temp = input()
 
-sayThread._stop()
+
+while True:
+    print("poo")

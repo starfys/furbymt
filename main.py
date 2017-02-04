@@ -115,14 +115,17 @@ while True:
 	if len(threads) > 0:
 		if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
 			sayThread.stop()
+			print("Thread told to stop.")
 			#sayThread = furby_sayThread(1, "sayThread", "quit")
 			#sayThread.start( )
 			#threads.append(sayThread)
 		else:
+			print("Thread told to restart.")
 			sayThread = furby_sayThread(1, "sayThread", val)
 			sayThread.start( )
 			threads.append(sayThread)
 	else:
+			print("Nothing running, starting new thread.")
 			sayThread = furby_sayThread(1, "sayThread", val)
 			sayThread.start( )
 			threads.append(sayThread)
