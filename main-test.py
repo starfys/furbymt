@@ -17,8 +17,6 @@ from furby_weather import weather
 from furby_forecast import get_forecast
 from furby_inspire import inspire
 
-threadLock = threading.Lock()
-threads = []
 
 def modSelect(str):
     firstword = str.split()[0]
@@ -91,6 +89,8 @@ class StoppableThread(threading.Thread):
     def stopped(self):
         return self._stop.isSet()
 
+   
+
 def _async_raise(tid, exctype):
     '''Raises an exception in the threads with id tid'''
     if not inspect.isclass(exctype):
@@ -109,19 +109,9 @@ class ThreadWithExc(threading.Thread):
     '''A thread class that supports raising exception in the thread from
        another thread.
     '''
-
-    def __init__(self, threadID, name, mod):
-        super(StoppableThread, self).__init__()
-        self.threadID = threadID
-        self.name = name
-        self.mod = mod
-        self._stop = threading.Event()
-
-    def stop(self):
-        self._stop.set()
-
-    def stopped(self):
-        return self._stop.isSet()
+    def run(self):
+    #   print( "Starting " + self.name)
+        modSelect("bee")
 
     def _get_my_tid(self):
         """determines this (self's) thread id
@@ -172,24 +162,9 @@ class ThreadWithExc(threading.Thread):
         """
         _async_raise( self._get_my_tid(), exctype )
 
-while True:
-    val = input('Do? ')
-    for thread in threads:
-        if not thread.is_alive():
-            print ("Removed finished thread.")
-            threads.remove(thread)
-    if len(threads) > 0:
-        if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
-            sayThread.stop()
-            #sayThread = ThreadWithExc(1, "sayThread", "quit")
-            #sayThread.start( )
-            #threads.append(sayThread)
-        else:
-            sayThread = ThreadWithExc(1, "sayThread", val)
-            sayThread.start( )
-            threads.append(sayThread)
-    else:
-            sayThread = ThreadWithExc(1, "sayThread", val)
-            sayThread.start( )
-            threads.append(sayThread)
-    print (threads) 
+sayThread = ThreadWithExc()
+sayThread.start()
+
+temp = input()
+
+sayThread._stop()
