@@ -4,6 +4,6 @@ def get_time():
     if (strftime("%l") == "12") and (strftime("%l") == "am") and (strftime("%M") == "00"):
         return "It's high noon!"
     if (strftime("%M") == "00"):
-        return(strftime("%l") + " o'clock")
+        return('It is ' + strftime("%l") + " o'clock")
     else:
-        return string
+        return 'It is ' + string
