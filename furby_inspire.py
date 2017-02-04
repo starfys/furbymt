@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import urllib3
 import random
 
-def Inspire():
+def inspire():
     
     http = urllib3.PoolManager()
 
