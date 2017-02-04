@@ -16,4 +16,3 @@ def date():
 	d += f.read()
 
 	return (str(d))
-print(date())

@@ -16,6 +16,8 @@ from furby_time import get_time
 from furby_weather import weather
 from furby_forecast import get_forecast
 
+threadLock = threading.Lock()
+threads = []
 
 def modSelect(str):
 	firstword = str.split()[0]
@@ -68,8 +70,8 @@ def modSelect(str):
 			say("I don't know that day. What do you think I am?", 0)
 			pass
 	else:
-   		pass
-	
+   		say("You said "+ str + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
+	threads.remove(0)
 
 
 class furby_sayThread (threading.Thread):
@@ -83,9 +85,8 @@ class furby_sayThread (threading.Thread):
 		modSelect(self.mod)
 	#	print ("Exiting " + self.name)
 
-threadLock = threading.Lock()
-threads = []
 
+#say("Furby online.", 500)
 
 def furby_say(string):
 	
@@ -98,9 +99,21 @@ def furby_move():
 while True:
 	val = input('Do? ')
 
-	sayThread = furby_sayThread(1, "sayThread", val)
-	sayThread.start( )
-	threads.append(sayThread)
+	if len(threads) > 0:
+		if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
+			threads[0].stop()
+		elif threads[0].name == 'sayThread':
+			pass
+		else:
+			sayThread = furby_sayThread(1, "sayThread", val)
+			sayThread.start( )
+			threads.append(sayThread)
+	else:
+			sayThread = furby_sayThread(1, "sayThread", val)
+			sayThread.start( )
+			threads.append(sayThread)
+	print
+
 
 	'''if val == 'time':
 		sayThread.mod = "time"
