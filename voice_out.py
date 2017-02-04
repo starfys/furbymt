@@ -1,9 +1,10 @@
 import espeak
 import sys
 
-
-
-arg1 = input()
-
 es = espeak.ESpeak()
-es.say(arg1)
+
+def say( str ):
+	es.say(str)
+	return
+
+say("ITS WORKING, ITS WORKING")
