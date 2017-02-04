@@ -77,6 +77,20 @@ def modSelect(str):
         say("You said "+ str + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
 
 
+class StoppableThread(threading.Thread):
+    """Thread class with a stop() method. The thread itself has to check
+    regularly for the stopped() condition."""
+
+    def __init__(self):
+        super(StoppableThread, self).__init__()
+        self._stop = threading.Event()
+
+    def stop(self):
+        self._stop.set()
+
+    def stopped(self):
+        return self._stop.isSet()
+
 def _async_raise(tid, exctype):
     '''Raises an exception in the threads with id tid'''
     if not inspect.isclass(exctype):
