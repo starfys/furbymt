@@ -19,23 +19,23 @@ from furby_forecast import get_forecast
 
 def modSelect(str):
 	if str == "bee":
-		say(bee())
+		say(bee(), 0)
 	elif str == "math":
-		say(math())
+		say(math(), 0)
 	elif str == "date":
-		say(date())
+		say(date(), 0)
 	elif str == "fortune":
-		say(fortune())
+		say(fortune(), 0)
 	elif str == "lucky":
-		say(lucky())
+		say(lucky(), 0)
 	elif str == "stallman":
-		say(stallman())
+		say(stallman(), 0)
 	elif str == "get_time":
-		say(get_time())
+		say(get_time(), 0)
 	elif str == "weather":
-		say(weather())
+		say(weather(), 0)
 	elif str == "get_forcast":
-		say(get_forcast())	
+		say(get_forcast(0), 0)	
 	else:
    		pass
 	
@@ -49,7 +49,7 @@ class furby_sayThread (threading.Thread):
 		self.mod = mod
 	def run(self):
 	#	print( "Starting " + self.name)
-		modSelect(self.mod, 0)
+		modSelect(self.mod)
 	#	print ("Exiting " + self.name)
 
 threadLock = threading.Lock()
