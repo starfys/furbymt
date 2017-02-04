@@ -9,12 +9,14 @@ from voiceOut import say
 #from fortune import fortune
 #from lucky_number import lucky
 #from richard_stallman import stallman
-from timeFurby import get_time
-#Tdfrom weather import weather
+#from timeFurby import get_time
+#from weather import weather
+from forecast import get_forecast
 
+say(get_forecast(0))
 
-print("Time...")
-say(get_time())
+#print("Time...")
+#say(get_time())
 #say("23:40")
 #print("Weather...")
 #say(weather())

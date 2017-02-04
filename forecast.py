@@ -13,6 +13,6 @@ for period in parsed_json['forecast']['txt_forecast']['forecastday']:
     forecasts.append(period_forecast)
 
 def get_forecast(day):
-    print(forecasts[day]
-    return forecasts[day]
+    string = forecasts[day]
+    return string
  
