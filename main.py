@@ -1,5 +1,7 @@
 #Import furby output function
-from voiceOut import say
+from voiceOut import say 
+import fileinput
+import threading
 #from movementOut import move
 #from screenOut import display
 
@@ -14,29 +16,54 @@ from furby_time import get_time
 from furby_weather import weather
 from furby_forecast import get_forecast
 
-print("Math...")
-say(math(22, '/', 7))
 
-print("Date...")
-say(date())
+def modSelect(str):
+	pass
+	
 
-print("Time...")
-say(get_time())
 
-print("Weather...")
-say(weather())
+class furby_sayThread (threading.Thread):
+	def __init__(self, threadID, name, mod):
+		threading.Thread.__init__(self)
+		self.threadID = threadID
+		self.name = name
+		self.mod = mod
+	def run(self):
+	#	print( "Starting " + self.name)
+		say(self.mod, 0)
+	#	print ("Exiting " + self.name)
 
-print("Forecast...")
-say(get_forecast(0))
+threadLock = threading.Lock()
+threads = []
 
-print("Lucky...")
-say(lucky("pepe"))
 
-print("Fortune...")
-say(fortune())
+def furby_say(string):
+	
+	return
+def furby_show():
+	return
+def furby_move():
+	return
 
-print("Stallman...")
-say(stallman())
+while True:
+	val = input('Do? ')
 
-print("Bee...")
-say(bee())
+	sayThread = furby_sayThread(1, "sayThread", val)
+	sayThread.start( )
+	threads.append(sayThread)
+
+	'''if val == 'time':
+		sayThread.mod = "time"
+
+	elif val == 'weather':
+		sayThread.mod = "weather"
+		sayThread.start( )
+		threads.append(sayThread)
+	elif val == 'date':
+		pass
+	else:
+		say("You are making me angry.", 0)'''
+#
+#		elif:
+#
+#		elif:	

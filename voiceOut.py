@@ -5,6 +5,10 @@ es = espeak.ESpeak()
 es.voice = 'en-us'
 #es.speed = 300
 
-def say( str ):
+defaultPitch = es.pitch
+
+def say( str , pit=defaultPitch):
+	tempPit = es.pitch
+	es.pitch = pit
 	es.say(str)
-	return
+	es.pitch = tempPit
