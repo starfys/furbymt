@@ -1,5 +1,7 @@
-#Import voice output function
-from voice_out import say
+#Import furby output function
+from voiceOut import say
+#from movementOut import move
+#from screenOut import display
 
 # Import modules
 #from bee_movie import bee
