@@ -2,26 +2,28 @@
 from voice_out import say
 
 # Import modules
-from bee_movie import bee
-from date import date
-from fortune import fortune
-from lucky_number import lucky
-from richard_stallman import stallman
-from time import time
-from weather import weather
+#from bee_movie import bee
+#from date import date
+#from fortune import fortune
+#from lucky_number import lucky
+#from richard_stallman import stallman
+from timeFurby import get_time
+#Tdfrom weather import weather
 
-print("Weather...")
+
+print("Time...")
+say(get_time())
+#say("23:40")
+#print("Weather...")
 #say(weather())
 
-print("Lucky...")
+#print("Lucky...")
 #say(lucky("aeuaoeu"))
-print("Date...")
+#print("Date...")
 #say(date())
-print("Fortune...")
+#print("Fortune...")
 #say(fortune())
-print("Time...")
-print(time())
-print("Stallman...")
-say(stallman())
+#print("Stallman...")
+#say(stallman())
 #print("Bee...")
 #say(bee())
