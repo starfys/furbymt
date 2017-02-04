@@ -1,3 +1,4 @@
+#!/bin/python3
 #Import furby output function
 from voiceOut import say 
 import fileinput
