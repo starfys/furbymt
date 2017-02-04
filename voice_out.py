@@ -1,5 +1,4 @@
-import espeak
-
+import espeak, sys, string, os
 es = espeak.ESpeak()
 
-es.say("One to the two to the two to the three.")
+es.say(os.system(sys.argv[1]))
