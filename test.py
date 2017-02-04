@@ -15,7 +15,7 @@ from furby_forecast import get_forecast
 
 
 print("Time...")
-print(get_time())
+say(get_time())
 
 print("Weather...")
 say(weather())
