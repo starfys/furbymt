@@ -144,8 +144,6 @@ while True:
 					threads.remove(thread)
 
 	else:
-			if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
-			#	os.kill(currentPid, signal.SIGTERM)
-			sayThread = furby_sayThread(1, "sayThread", val)
-			sayThread.start( )
-			threads.append(sayThread)
+		sayThread = furby_sayThread(1, "sayThread", val)
+		sayThread.start( )
+		threads.append(sayThread)
