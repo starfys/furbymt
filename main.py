@@ -121,9 +121,8 @@ mainPid = os.getpid()
 while True:
 	currentPid = 0
 
-	dict = get_command()
-	val = dict['action'] + dict['parameters']
-	print(val)
+	dic = get_command()
+	val = dic['action'] + dic['parameters']
 	print(val)
 	if len(threads) > 0:
 		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":
