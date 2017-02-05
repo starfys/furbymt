@@ -6,6 +6,9 @@ import threading
 import os
 import subprocess
 import signal
+import random
+
+
 
 #from movementOut import move
 #from screenOut import display
@@ -67,6 +70,8 @@ threadLock = threading.Lock()
 threads = []
 currentPid = -1
 
+queries = ['Yes?', 'I\'m listening.', 'Go ahead.', 'Ask away.', 'I\'m sworn to carry your burdens.', 'I have an answer.', 'What?', 'Mmhmm?', 'Mmyes?']
+
 def modSelect(thisString):
 	global currentPid
 	if thisString == '':
@@ -81,6 +86,16 @@ def modSelect(thisString):
 		thisPid = say(math(theRest), 0)
 	elif firstword == "get_love": 
 		thisPid = say(love(), 0)
+	elif firstword == "prompt_question": 
+		thisPid = say(random.choice(queries), 0)
+		dic = get_command()
+		if dic is None:
+			continue
+		try:
+			val = dic['resolvedQuery']
+			say(wolfram(val))
+		except:
+			val = dic['action']
 	elif firstword == "get_date":
 		thisPid = say(date(), 0)
 	elif firstword == "query":

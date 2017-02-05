@@ -50,7 +50,6 @@ def get_command():
 # dad joke
 # love
 # music
-# language
 
 if target_action == 'get_time':
     from furby_time import get_time
