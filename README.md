@@ -7,10 +7,9 @@
 * Tell you your fortune
 * Tell you the time
 * Tell you the date
+* Tell you the weather
 * Tell you whether he loves you (reveals his true feelings)
 * Tell you a lucky number
-* Tell you the weather
-* Tell you the weather
 * Answer your question (through wolfram)
 
 
