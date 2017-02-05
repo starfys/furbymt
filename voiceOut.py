@@ -1,5 +1,6 @@
 import espeak
 import sys
+import os
 
 es = espeak.ESpeak()
 es.voice = 'en-us'

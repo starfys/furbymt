@@ -64,7 +64,7 @@ class furby_sayThread (threading.Thread):
 		modSelect(self.mod)
 	#	print ("Exiting " + self.name)
 	def stop(self):
-		self._stop.set()
+		self.threadID = 2 / 0
 
 	def stopped(self):
 		return self._stop.isSet()
