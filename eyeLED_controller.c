@@ -8,9 +8,12 @@
 // Two pixels, hooked up to pin 6, using GRB and KHZ800
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(2, PIN, NEO_GRB + NEO_KHZ800);
 
-void FlickerWhite(uint16_t times, uint32_t delayMod);
-
-void GradientRed(uint16_t times, uint32_t delayMod);
+void swap(uint8_t& x, uint8_t& y);
+void Static();
+void Flicker();
+void Gradient();
+void AltFlicker();
+void AltGradient();
 
 uint8_t rightEyeRed = 0;
 uint8_t rightEyeBlue = 0;
@@ -22,7 +25,6 @@ uint8_t leftEyeGreen = 0;
 
 uint8_t mode = 0;
 
-uint16_t iterationTimes = 10; 
 uint32_t delayMod = 100;
 
 
@@ -42,9 +44,6 @@ void setup() {
 
 void serialEvent()
 {
-  //leftEyeRed = Serial.read();
-  //leftEyeGreen = Serial.read();
-  //leftEyeBlue = Serial.read();
 
   String inputData;
 
@@ -55,8 +54,11 @@ void serialEvent()
 
 
   //Read Mode
-  inputData = Serial.readStringUntil(':');
+  inputData = Serial.readStringUntil(',');
   mode = inputData.toInt();
+
+  inputData = Serial.readStringUntil(':');
+  delayMod = inputData.toInt();
 
 //Read Left Red Color
  inputData = Serial.readStringUntil(',');
@@ -96,6 +98,12 @@ void loop()
     
   if(mode == 2)
     Gradient();
+
+  if(mode == 3)
+    AltFlicker();
+
+  if(mode == 4)
+    AltGradient();
 }
 
 // Constant color and brightness
@@ -154,3 +162,66 @@ void Gradient()
   }
 }
 
+void AltFlicker()
+{
+  if(delayMod == 0)
+  {
+    delayMod = 1;
+  }
+    for(uint16_t count = 0; count < 2; ++count)
+    {
+      if( count%2 == 0 )
+      {
+        strip.setPixelColor(0, leftEyeRed, leftEyeGreen, leftEyeBlue);
+        strip.setPixelColor(1, rightEyeRed, rightEyeGreen, rightEyeBlue);
+      }
+      else
+      {
+        strip.setPixelColor(0, 0, 0, 0);
+        strip.setPixelColor(1, 0, 0, 0);
+      }
+
+      strip.show();
+      delay(delayMod);
+    }
+
+  swap(rightEyeRed, leftEyeRed);
+  swap(rightEyeBlue, leftEyeBlue);
+  swap(rightEyeGreen, leftEyeGreen);
+}
+
+void AltGradient()
+{
+
+  for(uint32_t j = 0; j < 100; ++j){
+      
+    strip.setPixelColor(0, (leftEyeRed * j)/100, (leftEyeGreen * j)/100, (leftEyeBlue * j)/100); 
+    strip.setPixelColor(1, (rightEyeRed * j)/100, (rightEyeGreen * j)/100, (rightEyeBlue * j)/100); 
+
+    strip.show();
+    delay(delayMod/10);
+    }
+
+  for(uint32_t j = 100; j > 0; --j){
+      
+    strip.setPixelColor(0, (leftEyeRed * j)/100, (leftEyeGreen * j)/100, (leftEyeBlue * j)/100);
+    strip.setPixelColor(1, (rightEyeRed * j)/100, (rightEyeGreen * j)/100, (rightEyeBlue * j)/100); 
+
+    strip.show();
+    delay(delayMod/10);
+  }
+
+  swap(rightEyeRed, leftEyeRed);
+  swap(rightEyeBlue, leftEyeBlue);
+  swap(rightEyeGreen, leftEyeGreen);
+}
+
+
+void swap(uint8_t& x, uint8_t& y)
+{
+  uint8_t temp;
+
+  temp = x;
+  x = y;
+  y = temp;
+}
