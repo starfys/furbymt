@@ -79,8 +79,6 @@ class furby_sayThread (threading.Thread):
 
 while True:
 	val = input('Do? ')
-	modSelect(val)
-	
 	for thread in threads:
 		if not thread.is_alive():
 			print ("Removed finished thread.")
