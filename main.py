@@ -72,23 +72,23 @@ def modSelect(thisString):
 	theRest = ''
 	for word in thisString.split()[1:]:
 		theRest = theRest + word + ' '
-	if firstword == "bee":
+	if firstword == "bee_movie":
 		thisPid = say(bee(), 0)
 	elif firstword == "compute": 
 		thisPid = say(math(theRest), 0)
-	elif firstword == "love": 
+	elif firstword == "get_love": 
 		thisPid = say(love(), 0)
-	elif firstword == "date":
+	elif firstword == "get_date":
 		thisPid = say(date(), 0)
 	elif firstword == "query":
 		thisPid = say(wolfram(theRest), 0)
-	elif firstword == "fortune":
+	elif firstword == "get_fortune":
 		thisPid = say(fortune(), 0)
 	elif firstword == "lucky": #takes arguments
 		thisPid = say(lucky(theRest), 0) 
-	elif firstword == "stallman":
+	elif firstword == "get_stallman":
 		thisPid = say(stallman(), 0)
-	elif firstword == "time":
+	elif firstword == "get_time":
 		thisPid = say(get_time(), 0)
 	elif firstword == "weather":
 		thisPid = say(weather(), 0)
@@ -123,7 +123,7 @@ while True:
 
 	dic = get_command()
 	val = dic['action']
-	
+
 	print(val)
 	if len(threads) > 0:
 		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":
