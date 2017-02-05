@@ -34,7 +34,7 @@ r.energy_threshold=1000
 
 def get_command():
 	with sr.Microphone() as source:
-		rint("Say something!")
+		print("Say something!")
 		audio = r.listen(source)
 	# recognize speech using Google Speech Recognition
 	try:
