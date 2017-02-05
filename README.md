@@ -9,7 +9,6 @@
 * Tell you the date
 * Tell you the weather
 * Tell you whether he loves you (reveals his true feelings)
-* Tell you a lucky number
 * Answer your question (through wolfram)
 
 
