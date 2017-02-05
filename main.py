@@ -108,9 +108,7 @@ def modSelect(thisString):
     if thisString == '':
         return
     firstword = thisString
-    if firstword == "compute": 
-        thisPid = say(math(theRest), 0)
-    elif firstword == "get_love": 
+    if firstword == "get_love": 
         thisPid = say(love(), 0)
     elif firstword == "prompt_question": 
         thisPid = say(random.choice(queries), 0)
@@ -121,8 +119,6 @@ def modSelect(thisString):
             say("query failed")
     elif firstword == "get_date":
         thisPid = say(date(), 0)
-    elif firstword == "query":
-        thisPid = say(wolfram(theRest), 0)
     elif firstword == "get_fortune":
         thisPid = say(fortune(), 0)
     elif firstword == "lucky": #takes arguments
@@ -131,36 +127,13 @@ def modSelect(thisString):
         thisPid = say(stallman(), 0)
     elif firstword == "get_time":
         thisPid = say(get_time(), 0)
-    elif firstword == "weather":
-        thisPid = say(weather(), 0)
     elif firstword == "torture":
         thisPid = say("Aaaaaaaaaaaaaaaaaoeeeeeeaaaaaaaaaaaaagggggll", 0)
-    elif firstword == "forecast": #takes arguments
-        thisPid = say(get_forecast(3), 0)
+    elif firstword == "get_forecast": #takes arguments
+        thisPid = say(get_forecast(0), 0)
     else:
         error_func(thisString)
-    currentPid = thisPid
-    return thisPid
-
-class furby_sayThread (threading.Thread):
-    def __init__(self, threadID, name, mod):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.mod = mod
-
-    def run(self):
-        currentPid = modSelect(self.mod)
-#    def stop(self):
-#        self._stop.set()
-
-#    def stopped(self):
-#        return self._stop.isSet()
-
-mainPid = os.getpid()
-
 while True:
-    currentPid = 0
     say("What is your command?")
     dic = get_command()
     if dic is None:
