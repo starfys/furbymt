@@ -90,3 +90,5 @@ ENV/
 
 #keys
 keys.json
+
+.*.swp

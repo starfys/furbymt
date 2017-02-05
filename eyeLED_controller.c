@@ -54,25 +54,33 @@ void serialEvent()
   }
 
 
-//Read Mode
+  //Read Mode
   inputData = Serial.readStringUntil(':');
   mode = inputData.toInt();
 
-//Read Red Color
+//Read Left Red Color
  inputData = Serial.readStringUntil(',');
- leftEyeRed = inputData.toInt();
- rightEyeRed = inputData.toInt();
+ leftEyeRed = (inputData.toInt() > 255) ? 255 : inputData.toInt();
 
- //Read Green Color
+ //Read Left Green Color
  inputData = Serial.readStringUntil(',');
- leftEyeGreen = inputData.toInt();
- rightEyeGreen = inputData.toInt();
+ leftEyeGreen = (inputData.toInt() > 255) ? 255 : inputData.toInt();
 
- //Read Blue Color
+ //Read Left Blue Color
+ inputData = Serial.readStringUntil(';');
+ leftEyeBlue = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+
+ //Read Right Red Color
+ inputData = Serial.readStringUntil(',');
+ rightEyeRed = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+
+ //Read Right Green Color
+ inputData = Serial.readStringUntil(',');
+ rightEyeGreen = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+
+ //Read Right Blue Color
  inputData = Serial.readStringUntil('#');
- leftEyeBlue = inputData.toInt();
- rightEyeBlue = inputData.toInt();
- 
+ rightEyeBlue = (inputData.toInt() > 255) ? 255 : inputData.toInt();
 
 
 }
