@@ -44,10 +44,8 @@ def get_command():
         tts_result = r.recognize_google(audio)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
-        exit()
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-        exit()
     #Read keys from json
     with open('keys.json','r') as keys_file:
         keys = json.load(keys_file)
@@ -123,7 +121,8 @@ mainPid = os.getpid()
 while True:
 	currentPid = 0
 
-	val = get_command()
+	dict = get_command()
+	val = dict['action'] + dict['parameters']
 	print(val)
 	if len(threads) > 0:
 		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":

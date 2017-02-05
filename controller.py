@@ -36,6 +36,22 @@ def get_command():
     #Make a request
     return session.get(API_BASE_URL+"query", params={"query": tts_result,"v":"20170204","sessionId":"furby","lang":"en"}).json()["result"]
 
+#bee_movie, 
+#get_date, 
+#get_forecast, 
+#get_fortune, 
+#prompt_name (for get lucky number), 
+#get_stallman, 
+#torture, 
+#get_time, 
+#prompt_question (for wolfram query)
+#
+# joke
+# dad joke
+# love
+# music
+# language
+
 if target_action == 'get_time':
     from furby_time import get_time
     say(get_time())
