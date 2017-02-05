@@ -18,6 +18,7 @@ from furby_weather import weather
 from furby_forecast import get_forecast
 from furby_inspire import inspire
 from furby_wolfram import wolfram
+from furby_love	import love
 
 threadLock = threading.Lock()
 threads = []
@@ -31,6 +32,8 @@ def modSelect(str):
 		say(bee(), 0)
 	elif firstword == "compute": 
 		say(math(theRest), 0)
+	elif firstword == "love": 
+		say(love(), 0)
 	elif firstword == "date":
 		say(date(), 0)
 	elif firstword == "query":
