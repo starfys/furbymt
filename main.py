@@ -127,7 +127,10 @@ while True:
 	dic = get_command()
 	if dic is None:
 		continue
-	val = dic['action']
+	try:
+		val = dic['action']
+	except:
+		val = dic['resolvedQuery']
 
 	print(val)
 	if len(threads) > 0:
