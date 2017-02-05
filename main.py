@@ -3,6 +3,7 @@
 from voiceOut import say 
 import fileinput
 import threading
+import os
 #from movementOut import move
 #from screenOut import display
 
@@ -66,6 +67,7 @@ class furby_sayThread (threading.Thread):
 
 	def run(self):
 	#	print( "Starting " + self.name)
+		print("My pid: " + str(os.getpid()))
 		modSelect(self.mod)
 	#	print ("Exiting " + self.name)
 	def stop(self):
@@ -76,7 +78,7 @@ class furby_sayThread (threading.Thread):
 
 
 #say("Furby online.", 500)
-
+print("Main pid: " + str(os.getpid()))
 while True:
 	val = input('Do? ')
 	for thread in threads:
@@ -85,7 +87,7 @@ while True:
 			threads.remove(thread)
 	if len(threads) > 0:
 		if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
-			sayThread.stop()
+			#sayThread.stop()
 			print("Thread told to stop.")
 			#sayThread = furby_sayThread(1, "sayThread", "quit")
 			#sayThread.start( )
