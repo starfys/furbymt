@@ -25,6 +25,7 @@ uint8_t leftEyeGreen = 0;
 
 uint8_t mode = 0;
 
+int tempInt = 0;
 uint32_t delayMod = 100;
 
 
@@ -52,7 +53,6 @@ void serialEvent()
     
   }
 
-
   //Read Mode
   inputData = Serial.readStringUntil(',');
   mode = inputData.toInt();
@@ -62,27 +62,63 @@ void serialEvent()
 
 //Read Left Red Color
  inputData = Serial.readStringUntil(',');
- leftEyeRed = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+ tempInt = inputData.toInt();
+ if(tempInt < 0)
+  tempInt = 0;
+ if(tempInt > 255)
+  tempInt = 255;
+
+  leftEyeRed = tempInt;
 
  //Read Left Green Color
  inputData = Serial.readStringUntil(',');
- leftEyeGreen = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+ tempInt = inputData.toInt();
+ if(tempInt < 0)
+  tempInt = 0;
+ if(tempInt > 255)
+  tempInt = 255;
+  
+ leftEyeGreen = tempInt;
 
  //Read Left Blue Color
  inputData = Serial.readStringUntil(';');
- leftEyeBlue = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+ tempInt = inputData.toInt();
+ if(tempInt < 0)
+  tempInt = 0;
+ if(tempInt > 255)
+  tempInt = 255;
+  
+ leftEyeBlue = tempInt;
 
  //Read Right Red Color
  inputData = Serial.readStringUntil(',');
- rightEyeRed = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+ tempInt = inputData.toInt();
+ if(tempInt < 0)
+  tempInt = 0;
+ if(tempInt > 255)
+  tempInt = 255;
+  
+ rightEyeRed = tempInt;
 
  //Read Right Green Color
  inputData = Serial.readStringUntil(',');
- rightEyeGreen = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+ tempInt = inputData.toInt();
+ if(tempInt < 0)
+  tempInt = 0;
+ if(tempInt > 255)
+  tempInt = 255;
+  
+ rightEyeGreen = tempInt;
 
  //Read Right Blue Color
  inputData = Serial.readStringUntil('#');
- rightEyeBlue = (inputData.toInt() > 255) ? 255 : inputData.toInt();
+ tempInt = inputData.toInt();
+ if(tempInt < 0)
+  tempInt = 0;
+ if(tempInt > 255)
+  tempInt = 255;
+  
+ rightEyeBlue = tempInt;
 
 
 }
@@ -225,3 +261,4 @@ void swap(uint8_t& x, uint8_t& y)
   x = y;
   y = temp;
 }
+
