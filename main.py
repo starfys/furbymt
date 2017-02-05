@@ -3,6 +3,9 @@
 from voiceOut import say 
 import fileinput
 import threading
+import os
+import subprocess
+import signal
 #from movementOut import move
 #from screenOut import display
 
@@ -22,40 +25,71 @@ from furby_love	import love
 
 threadLock = threading.Lock()
 threads = []
+currentPid = -1
 
-def modSelect(str):
-	firstword = str.split()[0]
+def modSelect(thisString):
+	global currentPid
+	print('UEOUOE ' + str(currentPid))
+	if thisString == '':
+		return
+	firstword = thisString.split()[0]
 	theRest = ''
-	for word in str.split()[1:]:
+	for word in thisString.split()[1:]:
 		theRest = theRest + word + ' '
 	if firstword == "bee":
-		say(bee(), 0)
+		thisPid = say(bee(), 0)
 	elif firstword == "compute": 
-		say(math(theRest), 0)
+		thisPid = say(math(theRest), 0)
 	elif firstword == "love": 
-		say(love(), 0)
+		thisPid = say(love(), 0)
 	elif firstword == "date":
-		say(date(), 0)
+		thisPid = say(date(), 0)
 	elif firstword == "query":
-		say(wolfram(theRest), 0)
+		thisPid = say(wolfram(theRest), 0)
 	elif firstword == "fortune":
-		say(fortune(), 0)
+		thisPid = say(fortune(), 0)
 	elif firstword == "lucky": #takes arguments
-		say(lucky(theRest), 0) 
+		thisPid = say(lucky(theRest), 0) 
 	elif firstword == "stallman":
-		say(stallman(), 0)
+		thisPid = say(stallman(), 0)
 	elif firstword == "time":
-		say(get_time(), 0)
+		thisPid = say(get_time(), 0)
 	elif firstword == "weather":
-		say(weather(), 0)
+		thisPid = say(weather(), 0)
 	elif firstword == "torture":
-		say("Aaaaaaaaaaaaaaaaaoeeeeeeaaaaaaaaaaaaagggggll", 0)
+		thisPid = say("Aaaaaaaaaaaaaaaaaoeeeeeeaaaaaaaaaaaaagggggll", 0)
 	elif firstword == "forecast": #takes arguments
-		print(theRest)
-		say(get_forecast(theRest), 0)
+		str.replace('forecast ', '')
+		thisPid = say(get_forecast(int(str.replace('forecast ', ''))), 0)
 	else:
-   		say("You said "+ str + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
+		thisPid = say("You said "+ thisString + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
+	print('RETURNING ' + str(thisPid))
+	currentPid = thisPid
+	return thisPid
 
+class furby_threadWait (threading.Thread):
+	def __init__(self):
+		threading.Thread.__init__(self)
+#		self.threadID = threadID
+#		self.name = name
+#		self.mod = mod
+
+	def run(self):
+		while True:
+		#	print(currentPid)
+			for thread in threads:
+				if not thread.is_alive():
+					print ("Removed finished thread.")
+					threads.remove(thread)
+	#	print( "Starting " + self.name)
+	#	print("My pid: " + str(os.getpid()))
+	#	currentPid = modSelect(self.mod)
+	#	print ("Exiting " + self.name)
+#	def stop(self):
+#		self._stop.set()
+
+#	def stopped(self):
+	#	return self._stop.isSet()	
 
 class furby_sayThread (threading.Thread):
 	def __init__(self, threadID, name, mod):
@@ -66,71 +100,65 @@ class furby_sayThread (threading.Thread):
 
 	def run(self):
 	#	print( "Starting " + self.name)
-		modSelect(self.mod)
+		print("My pid: " + str(os.getpid()))
+		currentPid = modSelect(self.mod)
+		print('I GOT ' + str(currentPid))
 	#	print ("Exiting " + self.name)
-	def stop(self):
-		self._stop.set()
+#	def stop(self):
+#		self._stop.set()
 
-	def stopped(self):
-		return self._stop.isSet()
+#	def stopped(self):
+#		return self._stop.isSet()
 
 
 #say("Furby online.", 500)
+print("Main pid: " + str(os.getpid()))
+mainPid = os.getpid()
+#waitThread = furby_threadWait()
+#waitThread.start()
 
 while True:
+	currentPid = 0
+
 	val = input('Do? ')
-	for thread in threads:
-		if not thread.is_alive():
-			print ("Removed finished thread.")
-			threads.remove(thread)
+	#for thread in threads:
+	#	if not thread.is_alive():
+	#		print ("Removed finished thread.")
+	#		threads.remove(thread)
+
 	if len(threads) > 0:
-		if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
-			sayThread.stop()
+		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":
+			#sayThread.stop()
 			print("Thread told to stop.")
+			if not currentPid == mainPid :
+				os.kill(currentPid, signal.SIGTERM)
+			print('KILLING ' + str(currentPid))
 			#sayThread = furby_sayThread(1, "sayThread", "quit")
 			#sayThread.start( )
 			#threads.append(sayThread)
+			for thread in threads:
+				if not thread.is_alive():
+					print ("Removed finished thread.")
+					threads.remove(thread)
 		else:
 			print("Thread told to restart.")
+			os.kill(currentPid, signal.SIGTERM)
+			print('KILLING ' + str(currentPid))
 			sayThread = furby_sayThread(1, "sayThread", val)
 			sayThread.start( )
+			print('NOW ITS ' + str(currentPid))
 			threads.append(sayThread)
+			for thread in threads:
+				if not thread.is_alive():
+					print ("Removed finished thread.")
+					threads.remove(thread)
+
 	else:
+			if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
+				os.kill(currentPid, signal.SIGTERM)
 			print("Nothing running, starting new thread.")
 			sayThread = furby_sayThread(1, "sayThread", val)
 			sayThread.start( )
+			print('NOW ITS ' + str(currentPid))
 			threads.append(sayThread)
 	print (threads) 
-
-'''
-	if len(threads) > 0:
-		if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
-			threads[0].stop()
-		elif threads[0].name == 'sayThread':
-			pass
-		else:
-			sayThread = furby_sayThread(1, "sayThread", val)
-			sayThread.start( )
-			threads.append(sayThread)
-	else:
-			sayThread = furby_sayThread(1, "sayThread", val)
-			sayThread.start( )
-			threads.append(sayThread)
-	print (threads) 
-
-
-	if val == 'time':
-		sayThread.mod = "time"
-
-	elif val == 'weather':
-		sayThread.mod = "weather"
-		sayThread.start( )
-		threads.append(sayThread)
-	elif val == 'date':
-		pass
-	else:
-		say("You are making me angry.", 0)'''
-#
-#		elif:
-#
-#		elif:	'''

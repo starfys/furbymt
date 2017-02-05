@@ -1,16 +1,11 @@
 import espeak
 import sys
 import os
+import subprocess
+import signal
 
-es = espeak.ESpeak()
-es.voice = 'en-us'
-#es.speed = 300
+def say( sayString , pit=50):
+	sp = subprocess.Popen(['espeak', sayString])
+	print('PID is ' + str(sp.pid))
+	return sp.pid
 
-defaultPitch = es.pitch
-
-def say( str , pit=defaultPitch):
-	tempPit = es.pitch
-	es.pitch = pit
-	es.say(str)
-	es.pitch = tempPit
-	return pid
