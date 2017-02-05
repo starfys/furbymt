@@ -1,6 +1,6 @@
 # furbymt
 
-**furbymt** is a python application that brings **consiousness** to your furby! :furby:
+**furbymt** is a python application that brings **consciousness** to your furby! :furby:
 
 ## The furby can do the following things so far:
 
