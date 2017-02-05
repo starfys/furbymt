@@ -48,6 +48,8 @@ def modSelect(str):
 		say(get_time(), 0)
 	elif firstword == "weather":
 		say(weather(), 0)
+	elif firstword == "torture":
+		say("Aaaaaaaaaaaaaaaaaoeeeeeeaaaaaaaaaaaaagggggll", 0)
 	elif firstword == "forecast": #takes arguments
 		print(theRest)
 		say(get_forecast(theRest), 0)
