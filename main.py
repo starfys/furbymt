@@ -131,9 +131,6 @@ while True:
 	print(val)
 	if len(threads) > 0:
 		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":
-			if not currentPid == mainPid :
-			#	os.kill(currentPid, signal.SIGTERM)
-
 			for thread in threads:
 				if not thread.is_alive():
 					threads.remove(thread)
