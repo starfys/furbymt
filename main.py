@@ -72,9 +72,9 @@ def modSelect(thisString):
 	theRest = ''
 	for word in thisString.split()[1:]:
 		theRest = theRest + word + ' '
-	if firstword == "bee_movie":
-		thisPid = say(bee(), 0)
-	elif firstword == "compute": 
+	#if firstword == "bee_movie":
+	#	thisPid = say(bee(), 0)
+	if firstword == "compute": 
 		thisPid = say(math(theRest), 0)
 	elif firstword == "get_love": 
 		thisPid = say(love(), 0)
@@ -128,13 +128,13 @@ while True:
 	if len(threads) > 0:
 		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":
 			if not currentPid == mainPid :
-				os.kill(currentPid, signal.SIGTERM)
+			#	os.kill(currentPid, signal.SIGTERM)
 
 			for thread in threads:
 				if not thread.is_alive():
 					threads.remove(thread)
 		else:
-			os.kill(currentPid, signal.SIGTERM)
+			#os.kill(currentPid, signal.SIGTERM)
 			sayThread = furby_sayThread(1, "sayThread", val)
 			sayThread.start( )
 			threads.append(sayThread)
@@ -144,7 +144,7 @@ while True:
 
 	else:
 			if val == "quit" or val == "shut up" or val == "exit" or val == "quiet":
-				os.kill(currentPid, signal.SIGTERM)
+			#	os.kill(currentPid, signal.SIGTERM)
 			sayThread = furby_sayThread(1, "sayThread", val)
 			sayThread.start( )
 			threads.append(sayThread)
