@@ -122,7 +122,8 @@ while True:
 	currentPid = 0
 
 	dic = get_command()
-	val = dic['action'] + dic['parameters']
+	val = dic['action']
+	
 	print(val)
 	if len(threads) > 0:
 		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":
