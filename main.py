@@ -123,8 +123,8 @@ mainPid = os.getpid()
 while True:
 	currentPid = 0
 
-	val = input('> ')
-
+	val = get_command()
+	print(val)
 	if len(threads) > 0:
 		if val == "quit" or val == "stop" or val == "shut up" or val == "exit" or val == "quiet":
 			if not currentPid == mainPid :
