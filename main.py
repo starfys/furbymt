@@ -51,8 +51,8 @@ def modSelect(str):
 	elif firstword == "torture":
 		say("Aaaaaaaaaaaaaaaaaoeeeeeeaaaaaaaaaaaaagggggll", 0)
 	elif firstword == "forecast": #takes arguments
-		print(theRest)
-		say(get_forecast(theRest), 0)
+		str.replace('forecast ', '')
+		say(get_forecast(int(str.replace('forecast ', ''))), 0)
 	else:
    		say("You said "+ str + ". Command not recognized. Did you mean to say, Furby, self destruct?.", 13)
 
