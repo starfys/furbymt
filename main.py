@@ -44,8 +44,10 @@ def get_command():
         tts_result = r.recognize_google(audio)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
+        return None
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
+    	return None
     #Read keys from json
     with open('keys.json','r') as keys_file:
         keys = json.load(keys_file)
@@ -122,6 +124,8 @@ while True:
 	currentPid = 0
 
 	dic = get_command()
+	if dic is None:
+		continue
 	val = dic['action']
 
 	print(val)
