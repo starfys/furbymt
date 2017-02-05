@@ -13,3 +13,4 @@ def say( str , pit=defaultPitch):
 	es.pitch = pit
 	es.say(str)
 	es.pitch = tempPit
+	return pid
