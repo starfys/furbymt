@@ -2,6 +2,7 @@ import espeak
 import sys
 import os
 import subprocess
+import signal
 
 #es = espeak.ESpeak()
 #es.voice = 'en-us'
@@ -9,15 +10,9 @@ import subprocess
 
 #defaultPitch = es.pitch
 
-def say( str , pit=50):
-	sp = subprocess.Popen(['espeak', '\"test\"'])
+def say( sayString , pit=50):
+	sp = subprocess.Popen(['espeak', sayString])
 	print('PID is ' + str(sp.pid))
+	return sp.pid
 
-print("My pid: " + str(os.getpid()))
-say('poo', 0)
-
-
-#	tempPit = es.pitch
-#	es.pitch = pit
-#	es.say(str)
-#	es.pitch = tempPit
+#os.kill(thisPid, signal.SIGTERM)

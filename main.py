@@ -4,6 +4,8 @@ from voiceOut import say
 import fileinput
 import threading
 import os
+import subprocess
+import signal
 #from movementOut import move
 #from screenOut import display
 
@@ -23,6 +25,7 @@ from furby_love	import love
 
 threadLock = threading.Lock()
 threads = []
+currentPid = -1
 
 def modSelect(str):
 	firstword = str.split()[0]
